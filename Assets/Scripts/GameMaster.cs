@@ -86,10 +86,10 @@ public class GameMaster : MonoBehaviour
             }
             else
             {
-                (Unit closestU, int distanceToU) = units[i].Closest(map.Units);
+                (Unit closestU, int distanceToU) = units[i].Closest(units);
                 (Building closestB, int distanceToB) = units[i].Raid(map.Builds, map.Builds.Count);
-                if (units[i].GetHealth() <= units[i].GetMaxHealth() * 0.25 && map.Units[i].AliveNt() == false)
-                    map.Units[i].Move(Random.Range(0, 4));
+                if (units[i].GetHealth() <= units[i].GetMaxHealth() * 0.25 && units[i].AliveNt() == false)
+                    units[i].Move(Random.Range(0, 4));
                 else
                 {
                     if (distanceToB < distanceToU)
@@ -98,13 +98,13 @@ public class GameMaster : MonoBehaviour
                         {
                             if (distanceToB <= units[i].GetRange())
                             {
-                                map.Units[i].Raze(closestB);
+                                units[i].Raze(closestB);
                             }
                             else
                             {
                                 if (units[i].GetY() > closestB.GetY())
                                 {
-                                    map.Units[i].Move(0);
+                                    units[i].Move(0);
                                 }
                                 else if (units[i].GetX() < closestB.GetX())
                                 {

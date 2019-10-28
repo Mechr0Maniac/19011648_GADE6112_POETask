@@ -33,7 +33,7 @@ public class CameraScript : MonoBehaviour
         {
             transform.Translate(new Vector3(0, speed * Time.deltaTime, 0));
         }
-        if (Input.GetKey(KeyCode.Q) && cam.orthographicSize <= 4.5)
+        if (Input.GetKey(KeyCode.Q) && cam.orthographicSize <= 5.5)
         {
             cam.orthographicSize += 0.1f;
             speed *= 1.05f;
