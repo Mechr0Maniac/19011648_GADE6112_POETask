@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using UnityEngine;
 
-namespace GADE6112_Task_3___19011648
-{
-    public class Map
+public class Map
     {
         List<Unit> units;
         List<Building> builds;
@@ -238,5 +236,4 @@ namespace GADE6112_Task_3___19011648
                 }
             }
         }*/
-    }
 }

@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GADE6112_Task_3___19011648
-{
-    [Serializable()]
+
     public abstract class Building
     {
         protected int bPosX;
@@ -22,4 +20,3 @@ namespace GADE6112_Task_3___19011648
         public abstract int FactionCheck();
         public abstract void Damage(int hit, bool inRange);
     }
-}

@@ -4,10 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GADE6112_Task_3___19011648
-{
-    [Serializable()]
-    public class FactoryBuilding : Building
+public class FactoryBuilding : Building
     {
         private int tempSpot;
         private int unitType;
@@ -141,4 +138,3 @@ namespace GADE6112_Task_3___19011648
             return unitType;
         }
     }
-}

@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GADE6112_Task_3___19011648
-{
-    public class WizardUnit : Unit
+public class WizardUnit : Unit
     {
         public bool IsDead { get; set; }
 
@@ -215,4 +213,3 @@ namespace GADE6112_Task_3___19011648
                 Death();
         }
     }
-}

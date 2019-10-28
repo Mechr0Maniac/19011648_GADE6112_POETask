@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GADE6112_Task_3___19011648
-{
-    public abstract class Unit
-    {
+ public abstract class Unit
+ {
         protected int xPos;
         protected int yPos;
         protected int health;
@@ -30,5 +28,4 @@ namespace GADE6112_Task_3___19011648
         public abstract int FactionCheck();
         public abstract void Damage(int hit, bool inRange);
         public abstract void SetDamage(int dam);
-    }
 }
