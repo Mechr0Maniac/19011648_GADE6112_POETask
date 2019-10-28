@@ -495,4 +495,4 @@ ScriptsOnlyBuild:
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/hexor/Desktop/GADE/19011648_GADE6112_POETask.exe
+  playerPath: D:/work/unity/.finished products/GADE6112_POE_19011648/19011648_GADE6112_POETask.exe
