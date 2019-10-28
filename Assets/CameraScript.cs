@@ -4,18 +4,31 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    public GameObject player;
-    public Vector3 offset;
+    public float speed;
     // Start is called before the first frame update
     void Start()
     {
-        offset = transform.position - player.transform.position;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = player.transform.position + new Vector3(offset.x, 1.18f, offset.z);
-        transform.position = new Vector3(transform.position.x, 1.18f, transform.position.z);
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0));
+        }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            transform.Translate(new Vector3(0, speed * Time.deltaTime, 0));
+        }
     }
 }
