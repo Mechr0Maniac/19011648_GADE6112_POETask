@@ -43,58 +43,39 @@ public class GameMaster : MonoBehaviour
 
     void Control()
     {
-        for (int i = 0; i < map.Units.Count; i++)
+        List<Unit> units = map.Units;
+        for (int i = 0; i < units.Count; i++)
         {
-            if (map.Units[i] is WizardUnit wu)
+            if (units[i] is WizardUnit wu)
             {
                 if (wu.Health <= wu.MaxHealth * 0.5 && wu.IsDead == false)
                     wu.Move(Random.Range(0, 4));
                 else
                 {
-                    (Unit closestU, int distanceToU) = wu.Closest(map.Units);
+                    (Unit closestU, int distanceToU) = wu.Closest(units);
                     if (closestU.AliveNt() == false && closestU.FactionCheck() != wu.Faction)
                     {
                         if (distanceToU <= 1)
                         {
-                            wu.IsAttacking = true;
                             wu.Combat(closestU);
                         }
                         else
                         {
-                            if (closestU is MeleeUnit closestMu)
+                            if (!(closestU is WizardUnit))
                             {
-                                if (wu.XPos > closestMu.XPos)
+                                if (wu.YPos > closestU.GetY())
                                 {
                                     wu.Move(0);
                                 }
-                                else if (wu.YPos < closestMu.YPos)
+                                else if (wu.XPos < closestU.GetX())
                                 {
                                     wu.Move(1);
                                 }
-                                else if (wu.XPos < closestMu.XPos)
+                                else if (wu.YPos < closestU.GetY())
                                 {
                                     wu.Move(2);
                                 }
-                                else if (wu.YPos > closestMu.YPos)
-                                {
-                                    wu.Move(3);
-                                }
-                            }
-                            else if (closestU is RangedUnit closestRu)
-                            {
-                                if (wu.XPos > closestRu.XPos)
-                                {
-                                    wu.Move(0);
-                                }
-                                else if (wu.YPos < closestRu.YPos)
-                                {
-                                    wu.Move(1);
-                                }
-                                else if (wu.XPos < closestRu.XPos)
-                                {
-                                    wu.Move(2);
-                                }
-                                else if (wu.YPos > closestRu.YPos)
+                                else if (wu.XPos > closestU.GetX())
                                 {
                                     wu.Move(3);
                                 }
@@ -103,36 +84,35 @@ public class GameMaster : MonoBehaviour
                     }
                 }
             }
-            if (map.Units[i] is MeleeUnit mu)
+            else
             {
-                (Unit closestU, int distanceToU) = mu.Closest(map.Units);
-                (Building closestB, int distanceToB) = mu.Raid(map.Builds, map.Builds.Count);
-                if (mu.Health <= mu.MaxHealth * 0.25 && mu.IsDead == false)
-                    mu.Move(Random.Range(0, 4));
+                (Unit closestU, int distanceToU) = units[i].Closest(map.Units);
+                (Building closestB, int distanceToB) = units[i].Raid(map.Builds, map.Builds.Count);
+                if (map.Units[i].Health <= map.Units[i].MaxHealth * 0.25 && map.Units[i].IsDead == false)
+                    map.Units[i].Move(Random.Range(0, 4));
                 else
                 {
                     if (distanceToB < distanceToU)
                     {
                         if (closestB.IsDie() == false && closestB.FactionCheck() != mu.Faction)
                         {
-                            if (distanceToB <= mu.AttackRange)
+                            if (distanceToB <= map.Units[i].AttackRange)
                             {
-                                mu.IsAttacking = true;
-                                mu.Raze(closestB);
+                                map.Units[i].Raze(closestB);
                             }
                             else
                             {
-                                if (mu.YPos > closestB.GetY())
+                                if (map.Units[i].YPos > closestB.GetY())
                                 {
-                                    mu.Move(0);
+                                    map.Units[i].Move(0);
                                 }
                                 else if (mu.XPos < closestB.GetX())
                                 {
-                                    mu.Move(1);
+                                    map.Units[i].Move(1);
                                 }
                                 else if (mu.YPos < closestB.GetY())
                                 {
-                                    mu.Move(2);
+                                    map.Units[i].Move(2);
                                 }
                                 else if (mu.XPos > closestB.GetX())
                                 {
@@ -172,114 +152,6 @@ public class GameMaster : MonoBehaviour
                         mu.Move(Random.Range(0, 4));
                 }
             }
-            else if (map.Units[i] is RangedUnit ru)
-            {
-                (Unit closestU, int distanceToU) = ru.Closest(map.Units);
-                (Building closestB, int distanceToB) = ru.Raid(map.Builds, map.Builds.Count);
-                if (distanceToB < distanceToU)
-                {
-                    if (closestB.IsDie() == false && closestB.FactionCheck() != ru.Faction)
-                    {
-                        if (distanceToB <= ru.AttackRange)
-                        {
-                            ru.IsAttacking = true;
-                            ru.Raze(closestB);
-                        }
-                        else
-                        {
-                            if (closestB is FactoryBuilding fact)
-                            {
-                                if (ru.XPos > fact.PosX)
-                                {
-                                    ru.Move(0);
-                                }
-                                else if (ru.YPos < fact.PosY)
-                                {
-                                    ru.Move(1);
-                                }
-                                else if (ru.XPos < fact.PosX)
-                                {
-                                    ru.Move(2);
-                                }
-                                else if (ru.YPos > fact.PosY)
-                                {
-                                    ru.Move(3);
-                                }
-                            }
-                            else if (closestB is ResourceBuilding res)
-                            {
-                                if (ru.XPos > res.PosX)
-                                {
-                                    ru.Move(0);
-                                }
-                                else if (ru.YPos < res.PosY)
-                                {
-                                    ru.Move(1);
-                                }
-                                else if (ru.XPos < res.PosX)
-                                {
-                                    ru.Move(2);
-                                }
-                                else if (ru.YPos > res.PosY)
-                                {
-                                    ru.Move(3);
-                                }
-                            }
-                        }
-                    }
-                    else
-                        ru.Move(Random.Range(0, 4));
-                }
-                if (closestU.AliveNt() == false && closestU.FactionCheck() != ru.Faction)
-                {
-                    if (distanceToU <= ru.AttackRange)
-                    {
-                        ru.IsAttacking = true;
-                        ru.Raze(closestB);
-                    }
-                    else
-                    {
-                        if (closestU is MeleeUnit closestMu)
-                        {
-                            if (ru.XPos > closestMu.XPos)
-                            {
-                                ru.Move(0);
-                            }
-                            else if (ru.YPos < closestMu.YPos)
-                            {
-                                ru.Move(1);
-                            }
-                            else if (ru.XPos < closestMu.XPos)
-                            {
-                                ru.Move(2);
-                            }
-                            else if (ru.YPos > closestMu.YPos)
-                            {
-                                ru.Move(3);
-                            }
-                        }
-                        else if (closestU is RangedUnit closestRu)
-                        {
-                            if (ru.XPos > closestRu.XPos)
-                            {
-                                ru.Move(0);
-                            }
-                            else if (ru.YPos < closestRu.YPos)
-                            {
-                                ru.Move(1);
-                            }
-                            else if (ru.XPos < closestRu.XPos)
-                            {
-                                ru.Move(2);
-                            }
-                            else if (ru.YPos > closestRu.YPos)
-                            {
-                                ru.Move(3);
-                            }
-                        }
-                    }
-                }
-            }
         }
         for (int i = 0; i < map.Builds.Count; i++)
         {
@@ -300,6 +172,5 @@ public class GameMaster : MonoBehaviour
                 fb.ProductSpeed++;
             }
         }
-        round++;
     }
 }

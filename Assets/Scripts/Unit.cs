@@ -30,4 +30,9 @@ public abstract class Unit
     public abstract void SetDamage(int dam);
     public abstract int GetY();
     public abstract int GetX();
+    public abstract int GetHealth();
+    public abstract int GetMaxHealth();
+    public abstract int GetRange();
+    public abstract (Building, int) Raid(List<Building> builds, int num);
+    public abstract void Raze(Building build);
 }

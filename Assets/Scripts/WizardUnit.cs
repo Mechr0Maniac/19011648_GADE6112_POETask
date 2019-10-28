@@ -224,4 +224,24 @@ public class WizardUnit : Unit
     {
         return XPos;
     }
+    public override void Raze(Building build)
+    {
+        throw new NotImplementedException();
+    }
+    public override (Building, int) Raid(List<Building> builds, int num)
+    {
+        throw new NotImplementedException();
+    }
+    public override int GetHealth()
+    {
+        return Health;
+    }
+    public override int GetMaxHealth()
+    {
+        return MaxHealth;
+    }
+    public override int GetRange()
+    {
+        throw new NotImplementedException();
+    }
 }

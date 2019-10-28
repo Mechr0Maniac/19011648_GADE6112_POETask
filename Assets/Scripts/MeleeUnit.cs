@@ -217,7 +217,7 @@ public class MeleeUnit : Unit
         return temp;
     }
 
-    public (Building, int) Raid(List<Building> builds, int num)
+    public override(Building, int) Raid(List<Building> builds, int num)
     {
         Random rand = new Random();
         int shortest = 100;
@@ -245,7 +245,7 @@ public class MeleeUnit : Unit
         }
         return (target, shortest);
     }
-    public void Raze(Building build)
+    public override void Raze(Building build)
     {
         build.Damage(Attack, InRange(build));
     }
@@ -279,5 +279,17 @@ public class MeleeUnit : Unit
     public override int GetX()
     {
         return XPos;
+    }
+    public override int GetHealth()
+    {
+        return Health;
+    }
+    public override int GetMaxHealth()
+    {
+        return MaxHealth;
+    }
+    public override int GetRange()
+    {
+        return AttackRange;
     }
 }
