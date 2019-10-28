@@ -63,8 +63,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CameraScript.cs" />
+    <Compile Include="Assets\Scripts\Building.cs" />
+    <Compile Include="Assets\Scripts\CameraScript.cs" />
+    <Compile Include="Assets\Scripts\FactoryBuilding.cs" />
+    <Compile Include="Assets\Scripts\Form1.cs" />
+    <Compile Include="Assets\Scripts\GameEngine.cs" />
     <Compile Include="Assets\Scripts\GameMaster.cs" />
+    <Compile Include="Assets\Scripts\Map.cs" />
+    <Compile Include="Assets\Scripts\MeleeUnit.cs" />
+    <Compile Include="Assets\Scripts\RangedUnit.cs" />
+    <Compile Include="Assets\Scripts\ResourceBuilding.cs" />
+    <Compile Include="Assets\Scripts\Unit.cs" />
+    <Compile Include="Assets\Scripts\WizardUnit.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/work/unity/19011648_GADE6112_POETask/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
