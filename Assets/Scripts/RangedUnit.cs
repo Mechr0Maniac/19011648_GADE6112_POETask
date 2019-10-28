@@ -98,15 +98,19 @@ public class RangedUnit : Unit
                 switch (dir)
                 {
                     case 0:
+                    if (YPos > 0)
                         YPos--;
                         break;
                     case 1:
+                    if (XPos < 19)
                         XPos++;
                         break;
                     case 2:
+                    if (YPos < 19)
                         YPos++;
                         break;
                     case 3:
+                    if (XPos > 0)
                         XPos--;
                         break;
                 }

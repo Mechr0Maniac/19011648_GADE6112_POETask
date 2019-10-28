@@ -34,16 +34,16 @@ public class Map
         builds = new List<Building>();
         numUnits = nu;
         numBuilds = nb;
-        sizeX = sx * 3;
-        sizeY = sy * 3;
+        sizeX = sx;
+        sizeY = sy;
         Sprites = spr;
     }
 
     public void Generate()
     {
-        for (int x = 0; x < sizeX; x += 3)
+        for (int x = 0; x < sizeX; x++)
         {
-            for (int y = 0; y < sizeY; y += 3)
+            for (int y = 0; y < sizeY; y++)
             {
                 Object.Instantiate(Sprites[0], new Vector3(x, y, 5), Quaternion.identity);
             }

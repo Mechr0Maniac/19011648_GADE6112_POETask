@@ -9,6 +9,7 @@ public class GameMaster : MonoBehaviour
     public int sizeX, sizeY;
     public int numUnits, numBuilds;
     public int round;
+    int count = 0, speed = 10;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,16 @@ public class GameMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (count == 0)
+        {   
+            Control();
+            map.Display();
+            count = speed;
+        }
+        else
+        {
+            count--;
+        }
         
     }
 
