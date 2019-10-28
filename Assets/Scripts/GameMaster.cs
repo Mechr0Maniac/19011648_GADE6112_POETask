@@ -7,21 +7,24 @@ public class GameMaster : MonoBehaviour
     public GameObject[] Sprites;
     public Map map;
     public int sizeX, sizeY;
+    public int numUnits, numBuilds;
+    public int round;
     // Start is called before the first frame update
     void Start()
     {
-        Display();
+        map = new Map(Sprites, numUnits, numBuilds, sizeX, sizeY);
+        map.Generate();
     }
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < map.Units.Count; i++)
+        /*for (int i = 0; i < map.Units.Count; i++)
         {
             if (map.Units[i] is MeleeUnit mu)
             {
                 if (mu.Health <= mu.MaxHealth * 0.25 && mu.IsDead == false)
-                    mu.Move(r.Next(0, 4));
+                    mu.Move(Random.Range(0, 4));
                 else
                 {
                     (Unit closestU, int distanceToU) = mu.Closest(map.Units);
@@ -78,7 +81,7 @@ public class GameMaster : MonoBehaviour
                             }
                         }
                         else
-                            mu.Move(r.Next(0, 4));
+                            mu.Move(Random.Range(0, 4));
                     }
                     else
                     {
@@ -132,7 +135,7 @@ public class GameMaster : MonoBehaviour
                             }
                         }
                         else
-                            mu.Move(r.Next(0, 4));
+                            mu.Move(Random.Range(0, 4));
                     }
                 }
             }
@@ -192,7 +195,7 @@ public class GameMaster : MonoBehaviour
                         }
                     }
                     else
-                        ru.Move(r.Next(0, 4));
+                        ru.Move(Random.Range(0, 4));
                 }
                 if (closestU.AliveNt() == false && closestU.FactionCheck() != ru.Faction)
                 {
@@ -247,7 +250,7 @@ public class GameMaster : MonoBehaviour
             else if (map.Units[i] is WizardUnit wu)
             {
                 if (wu.Health <= wu.MaxHealth * 0.5 && wu.IsDead == false)
-                    wu.Move(r.Next(0, 4));
+                    wu.Move(Random.Range(0, 4));
                 else
                 {
                     (Unit closestU, int distanceToU) = wu.Closest(map.Units);
@@ -323,7 +326,7 @@ public class GameMaster : MonoBehaviour
             }
         }
         map.Display(grpMap, textU, textB);
-        round++;
+        round++;*/
     }
 
     void Display()

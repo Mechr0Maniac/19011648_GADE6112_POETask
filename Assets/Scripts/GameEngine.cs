@@ -11,20 +11,18 @@ namespace GADE6112_Task_3___19011648
 {
     [Serializable]
     public class GameEngine
-    {/*
+    {
         BinaryFormatter format = new BinaryFormatter();
         Map map;
         private int round;
         Random r = new Random();
-        GroupBox grpMap;
-        TextBox textU, textB;
 
         public int Round
         {
             get { return round; }
         }
 
-        public GameEngine(int numUnits, int numBuilds, TextBox txtUnit, TextBox txtBuilding, GroupBox gMap, int mapWidth, int mapHeight)
+        /*public GameEngine(int numUnits, int numBuilds, TextBox txtUnit, TextBox txtBuilding, GroupBox gMap, int mapWidth, int mapHeight)
         {
             grpMap = gMap;
             textU = txtUnit;
@@ -33,7 +31,7 @@ namespace GADE6112_Task_3___19011648
             map.Generate();
             map.Display(grpMap, txtUnit, txtBuilding);
             round = 1;
-        }
+        }*/
 
         public void Update()
         {
@@ -343,7 +341,7 @@ namespace GADE6112_Task_3___19011648
                     fb.ProductSpeed++;
                 }
             }
-            map.Display(grpMap, textU, textB);
+            //map.Display(grpMap, textU, textB);
             round++;
         }
         public void Save()
@@ -365,6 +363,6 @@ namespace GADE6112_Task_3___19011648
         {
             //FileStream load = new FileStream(SAVE_GAME, FileMode.Open, FileAccess.Read);
             //map.Builds = (Building)format.Deserialize(load);
-        }*/
+        }
     }
 }
