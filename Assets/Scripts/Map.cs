@@ -107,6 +107,11 @@ public class Map
 
     public void Display()
     {
+        GameObject[] pieces = GameObject.FindGameObjectsWithTag("Pieces");
+        foreach (GameObject g in pieces)
+        {
+            Object.Destroy(g);
+        }
         foreach (Unit u in units)
         {
             if (u is MeleeUnit mu)
@@ -119,6 +124,8 @@ public class Map
                 {
                     Object.Instantiate(Sprites[2], new Vector2(mu.XPos, mu.YPos), Quaternion.identity);
                 }
+                if (mu.IsDead == true)
+                    Object.Instantiate(Sprites[10], new Vector2(mu.XPos, mu.YPos), Quaternion.identity);
             }
             else if (u is RangedUnit ru)
             {
@@ -130,10 +137,14 @@ public class Map
                 {
                     Object.Instantiate(Sprites[3], new Vector2(ru.XPos, ru.YPos), Quaternion.identity);
                 }
+                if (ru.IsDead == true)
+                    Object.Instantiate(Sprites[10], new Vector2(ru.XPos, ru.YPos), Quaternion.identity);
             }
             else if (u is WizardUnit wu)
             {
                 Object.Instantiate(Sprites[1], new Vector2(wu.XPos, wu.YPos), Quaternion.identity);
+                if (wu.IsDead == true)
+                    Object.Instantiate(Sprites[10], new Vector2(wu.XPos, wu.YPos), Quaternion.identity);
             }
         }
         foreach (Building b in builds)
@@ -148,6 +159,8 @@ public class Map
                 {
                     Object.Instantiate(Sprites[5], new Vector2(rb.PosX, rb.PosY), Quaternion.identity);
                 }
+                if (rb.IsDead == true)
+                    Object.Instantiate(Sprites[10], new Vector2(rb.PosX, rb.PosY), Quaternion.identity);
             }
             else if (b is FactoryBuilding fb)
             {
@@ -159,6 +172,8 @@ public class Map
                 {
                     Object.Instantiate(Sprites[4], new Vector2(fb.PosX, fb.PosY), Quaternion.identity);
                 }
+                if (fb.IsDead == true)
+                    Object.Instantiate(Sprites[10], new Vector2(fb.PosX, fb.PosY), Quaternion.identity);
             }
         }
     }

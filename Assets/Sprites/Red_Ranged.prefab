@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7596367275638671307}
   m_Layer: 9
   m_Name: Red_Ranged
-  m_TagString: Untagged
+  m_TagString: Pieces
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
