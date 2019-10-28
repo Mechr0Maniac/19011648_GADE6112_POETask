@@ -45,14 +45,72 @@ public class GameMaster : MonoBehaviour
     {
         for (int i = 0; i < map.Units.Count; i++)
         {
+            if (map.Units[i] is WizardUnit wu)
+            {
+                if (wu.Health <= wu.MaxHealth * 0.5 && wu.IsDead == false)
+                    wu.Move(Random.Range(0, 4));
+                else
+                {
+                    (Unit closestU, int distanceToU) = wu.Closest(map.Units);
+                    if (closestU.AliveNt() == false && closestU.FactionCheck() != wu.Faction)
+                    {
+                        if (distanceToU <= 1)
+                        {
+                            wu.IsAttacking = true;
+                            wu.Combat(closestU);
+                        }
+                        else
+                        {
+                            if (closestU is MeleeUnit closestMu)
+                            {
+                                if (wu.XPos > closestMu.XPos)
+                                {
+                                    wu.Move(0);
+                                }
+                                else if (wu.YPos < closestMu.YPos)
+                                {
+                                    wu.Move(1);
+                                }
+                                else if (wu.XPos < closestMu.XPos)
+                                {
+                                    wu.Move(2);
+                                }
+                                else if (wu.YPos > closestMu.YPos)
+                                {
+                                    wu.Move(3);
+                                }
+                            }
+                            else if (closestU is RangedUnit closestRu)
+                            {
+                                if (wu.XPos > closestRu.XPos)
+                                {
+                                    wu.Move(0);
+                                }
+                                else if (wu.YPos < closestRu.YPos)
+                                {
+                                    wu.Move(1);
+                                }
+                                else if (wu.XPos < closestRu.XPos)
+                                {
+                                    wu.Move(2);
+                                }
+                                else if (wu.YPos > closestRu.YPos)
+                                {
+                                    wu.Move(3);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             if (map.Units[i] is MeleeUnit mu)
             {
+                (Unit closestU, int distanceToU) = mu.Closest(map.Units);
+                (Building closestB, int distanceToB) = mu.Raid(map.Builds, map.Builds.Count);
                 if (mu.Health <= mu.MaxHealth * 0.25 && mu.IsDead == false)
                     mu.Move(Random.Range(0, 4));
                 else
                 {
-                    (Unit closestU, int distanceToU) = mu.Closest(map.Units);
-                    (Building closestB, int distanceToB) = mu.Raid(map.Builds, map.Builds.Count);
                     if (distanceToB < distanceToU)
                     {
                         if (closestB.IsDie() == false && closestB.FactionCheck() != mu.Faction)
@@ -64,103 +122,54 @@ public class GameMaster : MonoBehaviour
                             }
                             else
                             {
-                                if (closestB is FactoryBuilding fact)
+                                if (mu.YPos > closestB.GetY())
                                 {
-                                    if (mu.XPos > fact.PosX)
-                                    {
-                                        mu.Move(0);
-                                    }
-                                    else if (mu.YPos < fact.PosY)
-                                    {
-                                        mu.Move(1);
-                                    }
-                                    else if (mu.XPos < fact.PosX)
-                                    {
-                                        mu.Move(2);
-                                    }
-                                    else if (mu.YPos > fact.PosY)
-                                    {
-                                        mu.Move(3);
-                                    }
+                                    mu.Move(0);
                                 }
-                                else if (closestB is ResourceBuilding res)
+                                else if (mu.XPos < closestB.GetX())
                                 {
-                                    if (mu.XPos > res.PosX)
-                                    {
-                                        mu.Move(0);
-                                    }
-                                    else if (mu.YPos < res.PosY)
-                                    {
-                                        mu.Move(1);
-                                    }
-                                    else if (mu.XPos < res.PosX)
-                                    {
-                                        mu.Move(2);
-                                    }
-                                    else if (mu.YPos > res.PosY)
-                                    {
-                                        mu.Move(3);
-                                    }
+                                    mu.Move(1);
+                                }
+                                else if (mu.YPos < closestB.GetY())
+                                {
+                                    mu.Move(2);
+                                }
+                                else if (mu.XPos > closestB.GetX())
+                                {
+                                    mu.Move(3);
                                 }
                             }
                         }
+                    }
+                    else if (closestU.AliveNt() == false && closestU.FactionCheck() != mu.Faction)
+                    {
+                        if (distanceToU <= mu.AttackRange)
+                        {
+                            mu.IsAttacking = true;
+                            mu.Combat(closestU);
+                        }
                         else
-                            mu.Move(Random.Range(0, 4));
+                        {
+                            if (mu.YPos > closestU.GetY())
+                            {
+                                mu.Move(0);
+                            }
+                            else if (mu.XPos < closestU.GetX())
+                            {
+                                mu.Move(1);
+                            }
+                            else if (mu.YPos < closestU.GetY())
+                            {
+                                mu.Move(2);
+                            }
+                            else if (mu.XPos > closestU.GetX())
+                            {
+                                mu.Move(3);
+                            }
+                        }
                     }
                     else
-                    {
-                        if (closestU.AliveNt() == false && closestU.FactionCheck() != mu.Faction)
-                        {
-                            if (distanceToU <= mu.AttackRange)
-                            {
-                                mu.IsAttacking = true;
-                                mu.Combat(closestU);
-                            }
-                            else
-                            {
-                                if (closestU is MeleeUnit closestMu)
-                                {
-                                    if (mu.XPos > closestMu.XPos)
-                                    {
-                                        mu.Move(0);
-                                    }
-                                    else if (mu.YPos < closestMu.YPos)
-                                    {
-                                        mu.Move(1);
-                                    }
-                                    else if (mu.XPos < closestMu.XPos)
-                                    {
-                                        mu.Move(2);
-                                    }
-                                    else if (mu.YPos > closestMu.YPos)
-                                    {
-                                        mu.Move(3);
-                                    }
-                                }
-                                else if (closestU is RangedUnit closestRu)
-                                {
-                                    if (mu.XPos > closestRu.XPos)
-                                    {
-                                        mu.Move(0);
-                                    }
-                                    else if (mu.YPos < closestRu.YPos)
-                                    {
-                                        mu.Move(1);
-                                    }
-                                    else if (mu.XPos < closestRu.XPos)
-                                    {
-                                        mu.Move(2);
-                                    }
-                                    else if (mu.YPos > closestRu.YPos)
-                                    {
-                                        mu.Move(3);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                            mu.Move(Random.Range(0, 4));
-                    }
+                        mu.Move(Random.Range(0, 4));
                 }
             }
             else if (map.Units[i] is RangedUnit ru)
@@ -266,64 +275,6 @@ public class GameMaster : MonoBehaviour
                             else if (ru.YPos > closestRu.YPos)
                             {
                                 ru.Move(3);
-                            }
-                        }
-                    }
-                }
-            }
-            else if (map.Units[i] is WizardUnit wu)
-            {
-                if (wu.Health <= wu.MaxHealth * 0.5 && wu.IsDead == false)
-                    wu.Move(Random.Range(0, 4));
-                else
-                {
-                    (Unit closestU, int distanceToU) = wu.Closest(map.Units);
-                    if (closestU.AliveNt() == false && closestU.FactionCheck() != wu.Faction)
-                    {
-                        if (distanceToU <= 1)
-                        {
-                            wu.IsAttacking = true;
-                            wu.Combat(closestU);
-                        }
-                        else
-                        {
-                            if (closestU is MeleeUnit closestMu)
-                            {
-                                if (wu.XPos > closestMu.XPos)
-                                {
-                                    wu.Move(0);
-                                }
-                                else if (wu.YPos < closestMu.YPos)
-                                {
-                                    wu.Move(1);
-                                }
-                                else if (wu.XPos < closestMu.XPos)
-                                {
-                                    wu.Move(2);
-                                }
-                                else if (wu.YPos > closestMu.YPos)
-                                {
-                                    wu.Move(3);
-                                }
-                            }
-                            else if (closestU is RangedUnit closestRu)
-                            {
-                                if (wu.XPos > closestRu.XPos)
-                                {
-                                    wu.Move(0);
-                                }
-                                else if (wu.YPos < closestRu.YPos)
-                                {
-                                    wu.Move(1);
-                                }
-                                else if (wu.XPos < closestRu.XPos)
-                                {
-                                    wu.Move(2);
-                                }
-                                else if (wu.YPos > closestRu.YPos)
-                                {
-                                    wu.Move(3);
-                                }
                             }
                         }
                     }
