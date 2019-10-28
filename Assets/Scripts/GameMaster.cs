@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class GameMaster : MonoBehaviour
 {
-    public GameObject Sprites;
-    public int size;
+    public GameObject[] Sprites;
+    public int sizeX, sizeY;
     // Start is called before the first frame update
     void Start()
     {
-        
         Display();
     }
 
@@ -21,12 +20,13 @@ public class GameMaster : MonoBehaviour
 
     void Display()
     {
-        size *= 3;
-        for (int x = 0; x < size; x += 3)
+        sizeX *= 3;
+        sizeY *= 3;
+        for (int x = 0; x < sizeX; x += 3)
         {
-            for (int z = 0; z < size; z += 3)
+            for (int z = 0; z < sizeY; z += 3)
             {
-                Instantiate(Sprites, new Vector2(x, z), Quaternion.identity);
+                Instantiate(Sprites[0], new Vector2(x, z), Quaternion.identity);
             }
         }
 

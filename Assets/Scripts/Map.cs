@@ -1,18 +1,17 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using UnityEngine;
 
 namespace GADE6112_Task_3___19011648
 {
-    [Serializable()]
     public class Map
     {
         List<Unit> units;
         List<Building> builds;
-        Random r = new Random();
         int numUnits = 0,  numBuilds = 0;
         int mapW = 0, mapH = 0;
         //TextBox txtInfo;
@@ -45,53 +44,56 @@ namespace GADE6112_Task_3___19011648
         {
             for (int i = 0; i < numUnits; i++)
             {
-                if (r.Next(0, 2) == 0)
+                int r = Random.Range(0, 2);
+                if (r == 0)
                 {
-                    MeleeUnit m = new MeleeUnit(r.Next(0, mapW), r.Next(0, mapH), "Soldier", 100, 3, 20, i % 2 == 0 ? 1 : 0, "M");
+                    MeleeUnit m = new MeleeUnit(Random.Range(0, mapW), Random.Range(0, mapH), "Soldier", 100, 3, 20, i % 2 == 0 ? 1 : 0, "M");
                     units.Add(m);
                     numM++;
                 }
                 else
                 {
-                    RangedUnit ru = new RangedUnit(r.Next(0, mapW), r.Next(0, mapH), "Archer", 100, 2, 20, 5, i % 2 == 0 ? 1 : 0, "R");
+                    RangedUnit ru = new RangedUnit(Random.Range(0, mapW), Random.Range(0, mapH), "Archer", 100, 2, 20, 5, i % 2 == 0 ? 1 : 0, "R");
                     units.Add(ru);
                     numR++;
                 }
             }
             for (int j = 0; j < numBuilds; j++)
             {
-                if (r.Next(0, 2) == 0)
+                int r = Random.Range(0, 2);
+                if (r == 0)
                 {
-                    if (r.Next(0, 2) == 0)
+                    int f = Random.Range(0, 2);
+                    if (f == 0)
                     {
-                        FactoryBuilding fb = new FactoryBuilding(r.Next(0, mapW), r.Next(0, mapH), 0, 200, 5, j % 2 == 0 ? 1 : 0, "FB");
+                        FactoryBuilding fb = new FactoryBuilding(Random.Range(0, mapW), Random.Range(0, mapH), 0, 200, 5, j % 2 == 0 ? 1 : 0, "FB");
                         builds.Add(fb);
                     }
                     else
                     {
-                        FactoryBuilding fb = new FactoryBuilding(r.Next(0, mapW), r.Next(0, mapH), 1, 200, 5, j % 2 == 0 ? 1 : 0, "FB");
+                        FactoryBuilding fb = new FactoryBuilding(Random.Range(0, mapW), Random.Range(0, mapH), 1, 200, 5, j % 2 == 0 ? 1 : 0, "FB");
                         builds.Add(fb);
                     }
                 }
                 else
                 {
-                    ResourceBuilding rb = new ResourceBuilding(r.Next(0, mapW), r.Next(0, mapH), "Swords", 200, 2, 60, j % 2 == 0 ? 1 : 0);
+                    ResourceBuilding rb = new ResourceBuilding(Random.Range(0, mapW), Random.Range(0, mapH), "Swords", 200, 2, 60, j % 2 == 0 ? 1 : 0);
                     builds.Add(rb);
                 }
             }
             if (numR < numM)
             {
-                for (int k = 0; k < r.Next(numR, numM); k++)
+                for (int k = 0; k < Random.Range(numR, numM); k++)
                 {
-                    WizardUnit wu = new WizardUnit(r.Next(0, mapW), r.Next(0, mapH), "Wizro", 70, 1, 30, 3, "W");
+                    WizardUnit wu = new WizardUnit(Random.Range(0, mapW), Random.Range(0, mapH), "Wizro", 70, 1, 30, 3, "W");
                     units.Add(wu);
                 }
             }
             else
             {
-                for (int k = 0; k < r.Next(numM, numR); k++)
+                for (int k = 0; k < Random.Range(numM, numR); k++)
                 {
-                    WizardUnit wu = new WizardUnit(r.Next(0, mapW), r.Next(0, mapH), "Wizro", 70, 1, 30, 3, "W");
+                    WizardUnit wu = new WizardUnit(Random.Range(0, mapW), Random.Range(0, mapH), "Wizro", 70, 1, 30, 3, "W");
                     units.Add(wu);
                 }
             }
