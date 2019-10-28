@@ -125,18 +125,8 @@ public class RangedUnit : Unit
     public override bool InRange(Unit other)
     {
         int distance;
-        int otherX = 0;
-        int otherY = 0;
-        if (other is MeleeUnit nmeM)
-        {
-            otherX = nmeM.XPos;
-            otherY = nmeM.YPos;
-        }
-        else if (other is RangedUnit nmeR)
-        {
-            otherX = nmeR.XPos;
-            otherY = nmeR.YPos;
-        }
+        int otherX = other.GetX();
+        int otherY = other.GetY();
 
         distance = Math.Abs(XPos - otherX) + Math.Abs(YPos - otherY);
         if (distance <= AttackRange)
@@ -152,18 +142,8 @@ public class RangedUnit : Unit
     public bool InRange(Building builds)
     {
         int distance;
-        int otherX = 0;
-        int otherY = 0;
-        if (builds is FactoryBuilding nmeF)
-        {
-            otherX = nmeF.PosX;
-            otherY = nmeF.PosY;
-        }
-        else if (builds is ResourceBuilding nmeR)
-        {
-            otherX = nmeR.PosX;
-            otherY = nmeR.PosY;
-        }
+        int otherX = builds.GetX();
+        int otherY = builds.GetY();
 
         distance = Math.Abs(XPos - otherX) + Math.Abs(YPos - otherY);
         if (distance <= AttackRange)
@@ -182,26 +162,13 @@ public class RangedUnit : Unit
         Unit closest = this;
         foreach (Unit u in units)
         {
-            if (u is MeleeUnit && u != this)
+            if (u.FactionCheck() != Faction && u.AliveNt() == false)
             {
-                MeleeUnit otherMu = (MeleeUnit)u;
-                int distance = Math.Abs(XPos - otherMu.XPos)
-                           + Math.Abs(YPos - otherMu.YPos);
+                int distance = Math.Abs(XPos - u.GetX()) + Math.Abs(YPos - u.GetY());
                 if (distance < shortest)
                 {
                     shortest = distance;
-                    closest = otherMu;
-                }
-            }
-            else if (u is RangedUnit && u != this)
-            {
-                RangedUnit otherRu = (RangedUnit)u;
-                int distance = Math.Abs(XPos - otherRu.XPos)
-                           + Math.Abs(YPos - otherRu.YPos);
-                if (distance < shortest)
-                {
-                    shortest = distance;
-                    closest = otherRu;
+                    closest = u;
                 }
             }
         }
@@ -215,22 +182,13 @@ public class RangedUnit : Unit
         Building target = builds[rand.Next(0, num)];
         foreach (Building b in builds)
         {
-            if (b is ResourceBuilding resource)
+            if (b.FactionCheck() != Faction && b.IsDie() == false)
             {
-                int distance = Math.Abs(XPos - resource.PosX) + Math.Abs(YPos - resource.PosY);
+                int distance = Math.Abs(XPos - b.GetX()) + Math.Abs(YPos - b.GetY());
                 if (distance < shortest)
                 {
                     shortest = distance;
-                    target = resource;
-                }
-            }
-            else if (b is FactoryBuilding factory)
-            {
-                int distance = Math.Abs(XPos - factory.PosX) + Math.Abs(YPos - factory.PosY);
-                if (distance < shortest)
-                {
-                    shortest = distance;
-                    target = factory;
+                    target = b;
                 }
             }
         }

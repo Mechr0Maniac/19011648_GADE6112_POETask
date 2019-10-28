@@ -66,8 +66,6 @@
     <Compile Include="Assets\Scripts\Building.cs" />
     <Compile Include="Assets\Scripts\CameraScript.cs" />
     <Compile Include="Assets\Scripts\FactoryBuilding.cs" />
-    <Compile Include="Assets\Scripts\Form1.cs" />
-    <Compile Include="Assets\Scripts\GameEngine.cs" />
     <Compile Include="Assets\Scripts\GameMaster.cs" />
     <Compile Include="Assets\Scripts\Map.cs" />
     <Compile Include="Assets\Scripts\MeleeUnit.cs" />

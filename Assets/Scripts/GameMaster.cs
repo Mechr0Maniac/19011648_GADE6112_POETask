@@ -53,7 +53,7 @@ public class GameMaster : MonoBehaviour
                 else
                 {
                     (Unit closestU, int distanceToU) = wu.Closest(units);
-                    if (closestU.AliveNt() == false && closestU.FactionCheck() != wu.Faction)
+                    if (closestU.AliveNt() == false)
                     {
                         if (distanceToU <= 1)
                         {
@@ -88,68 +88,67 @@ public class GameMaster : MonoBehaviour
             {
                 (Unit closestU, int distanceToU) = units[i].Closest(map.Units);
                 (Building closestB, int distanceToB) = units[i].Raid(map.Builds, map.Builds.Count);
-                if (map.Units[i].Health <= map.Units[i].MaxHealth * 0.25 && map.Units[i].IsDead == false)
+                if (units[i].GetHealth() <= units[i].GetMaxHealth() * 0.25 && map.Units[i].AliveNt() == false)
                     map.Units[i].Move(Random.Range(0, 4));
                 else
                 {
                     if (distanceToB < distanceToU)
                     {
-                        if (closestB.IsDie() == false && closestB.FactionCheck() != mu.Faction)
+                        if (closestB.IsDie() == false && closestB.FactionCheck() != units[i].FactionCheck())
                         {
-                            if (distanceToB <= map.Units[i].AttackRange)
+                            if (distanceToB <= units[i].GetRange())
                             {
                                 map.Units[i].Raze(closestB);
                             }
                             else
                             {
-                                if (map.Units[i].YPos > closestB.GetY())
+                                if (units[i].GetY() > closestB.GetY())
                                 {
                                     map.Units[i].Move(0);
                                 }
-                                else if (mu.XPos < closestB.GetX())
+                                else if (units[i].GetX() < closestB.GetX())
                                 {
-                                    map.Units[i].Move(1);
+                                    units[i].Move(1);
                                 }
-                                else if (mu.YPos < closestB.GetY())
+                                else if (units[i].GetY() < closestB.GetY())
                                 {
-                                    map.Units[i].Move(2);
+                                    units[i].Move(2);
                                 }
-                                else if (mu.XPos > closestB.GetX())
+                                else if (units[i].GetX() > closestB.GetX())
                                 {
-                                    mu.Move(3);
+                                    units[i].Move(3);
                                 }
                             }
                         }
                     }
-                    else if (closestU.AliveNt() == false && closestU.FactionCheck() != mu.Faction)
+                    else if (closestU.AliveNt() == false)
                     {
-                        if (distanceToU <= mu.AttackRange)
+                        if (distanceToU <= units[i].GetRange())
                         {
-                            mu.IsAttacking = true;
-                            mu.Combat(closestU);
+                            units[i].Combat(closestU);
                         }
                         else
                         {
-                            if (mu.YPos > closestU.GetY())
+                            if (units[i].GetY() > closestU.GetY())
                             {
-                                mu.Move(0);
+                                units[i].Move(0);
                             }
-                            else if (mu.XPos < closestU.GetX())
+                            else if (units[i].GetX() < closestU.GetX())
                             {
-                                mu.Move(1);
+                                units[i].Move(1);
                             }
-                            else if (mu.YPos < closestU.GetY())
+                            else if (units[i].GetY() < closestU.GetY())
                             {
-                                mu.Move(2);
+                                units[i].Move(2);
                             }
-                            else if (mu.XPos > closestU.GetX())
+                            else if (units[i].GetX() > closestU.GetX())
                             {
-                                mu.Move(3);
+                                units[i].Move(3);
                             }
                         }
                     }
                     else
-                        mu.Move(Random.Range(0, 4));
+                        units[i].Move(Random.Range(0, 4));
                 }
             }
         }

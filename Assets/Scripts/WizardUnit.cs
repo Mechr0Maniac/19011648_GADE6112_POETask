@@ -118,19 +118,17 @@ public class WizardUnit : Unit
 
     public override bool InRange(Unit other)
     {
-        int otherX = 0;
-        int otherY = 0;
-        if (other is MeleeUnit nmeM)
+        int distanceX, distanceY;
+        int otherX = other.GetX();
+        int otherY = other.GetY();
+
+        distanceX = Math.Abs(XPos - otherX);
+        distanceY = Math.Abs(YPos - otherY);
+        if (distanceX <= 1 && distanceY > Attack)
         {
-            otherX = nmeM.XPos;
-            otherY = nmeM.YPos;
+            return true;
         }
-        else if (other is RangedUnit nmeR)
-        {
-            otherX = nmeR.XPos;
-            otherY = nmeR.YPos;
-        }
-        if (otherX <= XPos + 1 && otherX >= XPos - 1 || otherY <= YPos + 1 && otherY >= YPos - 1)
+        else if (distanceX > 1 && distanceY <= Attack)
         {
             return true;
         }
@@ -146,28 +144,15 @@ public class WizardUnit : Unit
         Unit closest = this;
         foreach (Unit u in units)
         {
-            if (u is MeleeUnit && u != this)
+            if (u.FactionCheck() != Faction)
             {
-                MeleeUnit otherMu = (MeleeUnit)u;
-                int distance = Math.Abs(XPos - otherMu.XPos) + Math.Abs(YPos - otherMu.YPos);
+                int distance = Math.Abs(XPos - u.GetX()) + Math.Abs(YPos - u.GetY());
                 if (distance < shortest)
                 {
                     shortest = distance;
-                    closest = otherMu;
+                    closest = u;
                 }
             }
-            else if (u is RangedUnit && u != this)
-            {
-                RangedUnit otherRu = (RangedUnit)u;
-                int distance = Math.Abs(XPos - otherRu.XPos)
-                           + Math.Abs(YPos - otherRu.YPos);
-                if (distance < shortest)
-                {
-                    shortest = distance;
-                    closest = otherRu;
-                }
-            }
-
         }
         return (closest, shortest);
     }
