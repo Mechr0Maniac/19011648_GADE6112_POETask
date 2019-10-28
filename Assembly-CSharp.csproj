@@ -63,8 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\GameMaster.cs" />
-    <Compile Include="Assets\Tiles.cs" />
+    <Compile Include="Assets\CameraScript.cs" />
+    <Compile Include="Assets\Scripts\GameMaster.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/work/unity/19011648_GADE6112_POETask/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
