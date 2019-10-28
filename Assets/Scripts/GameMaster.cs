@@ -39,6 +39,16 @@ public class GameMaster : MonoBehaviour
         {
             pause = !pause;
         }
+        if (Input.GetKey(KeyCode.R))
+        {
+            map = new Map(Sprites, numUnits, numBuilds, sizeX, sizeY);
+            map.Generate();
+            map.Display();
+        }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     void Control()

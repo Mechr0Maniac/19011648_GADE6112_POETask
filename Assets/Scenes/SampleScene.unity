@@ -223,7 +223,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -635.73, y: 319.59}
+  m_AnchoredPosition: {x: -704.32, y: 348.1}
   m_SizeDelta: {x: 222, y: 78.59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &413154739
@@ -261,7 +261,11 @@ MonoBehaviour:
 
     Space to Play/Pause
 
-    Q and E to Zoom'
+    Q and E to Zoom
+
+    R to reset
+
+    Escape to close game'
 --- !u!222 &413154740
 CanvasRenderer:
   m_ObjectHideFlags: 0
