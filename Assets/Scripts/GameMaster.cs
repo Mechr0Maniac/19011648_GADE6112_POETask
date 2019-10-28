@@ -14,12 +14,18 @@ public class GameMaster : MonoBehaviour
     {
         map = new Map(Sprites, numUnits, numBuilds, sizeX, sizeY);
         map.Generate();
+        map.Display();
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*for (int i = 0; i < map.Units.Count; i++)
+        
+    }
+
+    void Control()
+    {
+        for (int i = 0; i < map.Units.Count; i++)
         {
             if (map.Units[i] is MeleeUnit mu)
             {
@@ -325,21 +331,7 @@ public class GameMaster : MonoBehaviour
                 fb.ProductSpeed++;
             }
         }
-        map.Display(grpMap, textU, textB);
-        round++;*/
-    }
-
-    void Display()
-    {
-        sizeX *= 3;
-        sizeY *= 3;
-        for (int x = 0; x < sizeX; x += 3)
-        {
-            for (int z = 0; z < sizeY; z += 3)
-            {
-                Instantiate(Sprites[0], new Vector2(x, z), Quaternion.identity);
-            }
-        }
-
+        //map.Display(grpMap, textU, textB);
+        round++;
     }
 }

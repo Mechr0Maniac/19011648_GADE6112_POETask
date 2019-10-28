@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3850351595735131125}
   - component: {fileID: 5668975251450161902}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: CrossHair
   m_TagString: Untagged
   m_Icon: {fileID: 0}

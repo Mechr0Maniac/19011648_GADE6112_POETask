@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
+    Camera cam;
     public float speed;
     // Start is called before the first frame update
     void Start()
     {
-        
+        cam = GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -48,11 +49,11 @@ public class CameraScript : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Q))
         {
-            transform.Translate(new Vector3(0, 0, -speed * Time.deltaTime));
+            cam.orthographicSize++;
         }
         if (Input.GetKey(KeyCode.E))
         {
-            transform.Translate(new Vector3(0, 0, speed * Time.deltaTime));
+            cam.orthographicSize--;
         }
     }
 }

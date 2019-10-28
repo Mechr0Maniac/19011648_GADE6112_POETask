@@ -22,34 +22,33 @@ public class Map
         set { units = value; }
     }
 
-        public List<Building> Builds
-        {
-            get { return builds; }
-            set { builds = value; }
-        }
+    public List<Building> Builds
+    {
+        get { return builds; }
+        set { builds = value; }
+    }
 
-        public Map(GameObject[] spr, int nu, int nb, int sx, int sy)
-        {
-            units = new List<Unit>();
-            builds = new List<Building>();
-            numUnits = nu;
-            numBuilds = nb;
-            //txtInfo = txt;
-            sizeX = sx*3;
-            sizeY = sy*3;
+    public Map(GameObject[] spr, int nu, int nb, int sx, int sy)
+    {
+        units = new List<Unit>();
+        builds = new List<Building>();
+        numUnits = nu;
+        numBuilds = nb;
+        sizeX = sx * 3;
+        sizeY = sy * 3;
         Sprites = spr;
-        }
+    }
 
     public void Generate()
     {
         for (int x = 0; x < sizeX; x += 3)
         {
-            for (int z = 0; z < sizeY; z += 3)
+            for (int y = 0; y < sizeY; y += 3)
             {
-                Object.Instantiate(Sprites[0], new Vector2(x, z), Quaternion.identity);
+                Object.Instantiate(Sprites[0], new Vector3(x, y, 5), Quaternion.identity);
             }
         }
-        /*for (int i = 0; i < numUnits; i++)
+        for (int i = 0; i < numUnits; i++)
         {
             int r = Random.Range(0, 2);
             if (r == 0)
@@ -103,146 +102,64 @@ public class Map
                 WizardUnit wu = new WizardUnit(Random.Range(0, sizeX), Random.Range(0, sizeY), "Wizro", 70, 1, 30, 3, "W");
                 units.Add(wu);
             }
-        }*/
+        }
     }
 
-    /*public void Display(GroupBox groupBox, TextBox txtU, TextBox txtB)
+    public void Display()
     {
-        groupBox.Controls.Clear();
-        txtU.Text = String.Empty;
-        txtB.Text = String.Empty;
         foreach (Unit u in units)
         {
-            Button myButt = new Button();
             if (u is MeleeUnit mu)
             {
-                myButt.Size = new Size(20, 20);
-                myButt.Location = new Point(mu.XPos * 20, mu.YPos * 20);
-                myButt.Text = mu.Symbol;
                 if (mu.Faction == 0)
                 {
-                    myButt.ForeColor = Color.Red;
+                    Object.Instantiate(Sprites[6], new Vector2(mu.XPos, mu.YPos), Quaternion.identity);
                 }
                 else
                 {
-                    myButt.ForeColor = Color.Green;
+                    Object.Instantiate(Sprites[2], new Vector2(mu.XPos, mu.YPos), Quaternion.identity);
                 }
             }
             else if (u is RangedUnit ru)
             {
-                myButt.Size = new Size(20, 20);
-                myButt.Location = new Point(ru.XPos * 20, ru.YPos * 20);
-                myButt.Text = ru.Symbol;
                 if (ru.Faction == 0)
                 {
-                    myButt.ForeColor = Color.Red;
+                    Object.Instantiate(Sprites[7], new Vector2(ru.XPos, ru.YPos), Quaternion.identity);
                 }
                 else
                 {
-                    myButt.ForeColor = Color.Green;
+                    Object.Instantiate(Sprites[3], new Vector2(ru.XPos, ru.YPos), Quaternion.identity);
                 }
             }
             else if (u is WizardUnit wu)
             {
-                myButt.Size = new Size(20, 20);
-                myButt.Location = new Point(wu.XPos * 20, wu.YPos * 20);
-                myButt.Text = wu.Symbol;
-                myButt.ForeColor = Color.Gray;
+                Object.Instantiate(Sprites[1], new Vector2(wu.XPos, wu.YPos), Quaternion.identity);
             }
-            //myButt.Click += Unit_Click;
-            groupBox.Controls.Add(myButt);
-            txtU.AppendText(u.ToString());
-            txtU.AppendText(Environment.NewLine);
         }
         foreach (Building b in builds)
         {
-            Button myButt = new Button();
             if (b is ResourceBuilding rb)
             {
-                myButt.Size = new Size(30, 30);
-                myButt.Location = new Point(rb.PosX * 30, rb.PosY * 30);
-                myButt.Text = rb.Symbol;
                 if (rb.Faction == 0)
                 {
-                    myButt.ForeColor = Color.Red;
+                    Object.Instantiate(Sprites[9], new Vector2(rb.PosX, rb.PosY), Quaternion.identity);
                 }
                 else
                 {
-                    myButt.ForeColor = Color.Green;
+                    Object.Instantiate(Sprites[5], new Vector2(rb.PosX, rb.PosY), Quaternion.identity);
                 }
             }
-            else
+            else if (b is FactoryBuilding fb)
             {
-                FactoryBuilding fb = (FactoryBuilding)b;
-                myButt.Size = new Size(30, 30);
-                myButt.Location = new Point(fb.PosX * 30, fb.PosY * 30);
-                myButt.Text = fb.Symbol;
                 if (fb.Faction == 0)
                 {
-                    myButt.ForeColor = Color.Red;
+                    Object.Instantiate(Sprites[8], new Vector2(fb.PosX, fb.PosY), Quaternion.identity);
                 }
                 else
                 {
-                    myButt.ForeColor = Color.Green;
-                }
-            }
-            //myButt.Click += Building_Click;
-            groupBox.Controls.Add(myButt);
-            txtB.AppendText(b.ToString());
-            txtB.AppendText(Environment.NewLine);
-        }*/
-
-
-        /*public void Unit_Click(object sender, EventArgs e)
-        {
-            int x, y;
-            Button myButt = (Button)sender;
-            x = myButt.Location.X / 20;
-            y = myButt.Location.Y / 20;
-            foreach (Unit u in units)
-            {
-                if (u is RangedUnit ru )
-                {
-                    if (ru.XPos == x && ru.YPos == y)
-                    {
-                        txtInfo.Text = "";
-                        txtInfo.Text = ru.ToString();
-                    }
-                }
-                else if (u is MeleeUnit mu)
-                {
-                    if (mu.XPos == x && mu.YPos == y)
-                    {
-                        txtInfo.Text = "";
-                        txtInfo.Text = mu.ToString();
-                    }
+                    Object.Instantiate(Sprites[4], new Vector2(fb.PosX, fb.PosY), Quaternion.identity);
                 }
             }
         }
-        public void Building_Click(object sender, EventArgs e)
-        {
-            int x, y;
-            Button myButt = (Button)sender;
-            x = myButt.Location.X / 20;
-            y = myButt.Location.Y / 20;
-            foreach (Building b in builds)
-            {
-                if (b is ResourceBuilding rb)
-                {
-                    if (rb.PosX == x && rb.PosY == y)
-                    {
-                        txtInfo.Text = "";
-                        txtInfo.Text = rb.ToString();
-                    }
-                }
-                else if (b is FactoryBuilding fb)
-                {
-                    if (fb.PosX == x && fb.PosY == y)
-                    {
-                        txtInfo.Text = "";
-                        txtInfo.Text = fb.ToString();
-                    }
-                }
-            }
-        }*/
+    }
 }
